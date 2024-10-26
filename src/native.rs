@@ -412,7 +412,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelPackData::BufferOffset(offset) => offset as *mut std::ffi::c_void,
-                PixelPackData::Slice(data) => data.as_mut_ptr() as *mut std::ffi::c_void,
+                PixelPackData::Slice(Some(data)) => data.as_mut_ptr() as *mut std::ffi::c_void,
+                PixelPackData::Slice(None) => ptr::null_mut(),
             },
         );
     }
@@ -2526,7 +2527,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelUnpackData::BufferOffset(offset) => offset as *const std::ffi::c_void,
-                PixelUnpackData::Slice(data) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(Some(data)) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(None) => ptr::null(),
             },
         );
     }
@@ -3279,7 +3281,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelUnpackData::BufferOffset(offset) => offset as *const std::ffi::c_void,
-                PixelUnpackData::Slice(data) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(Some(data)) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(None) => ptr::null(),
             },
         );
     }
@@ -3308,7 +3311,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelUnpackData::BufferOffset(offset) => offset as *const std::ffi::c_void,
-                PixelUnpackData::Slice(data) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(Some(data)) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(None) => ptr::null(),
             },
         );
     }
@@ -3368,7 +3372,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelUnpackData::BufferOffset(offset) => offset as *const std::ffi::c_void,
-                PixelUnpackData::Slice(data) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(Some(data)) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(None) => ptr::null(),
             },
         );
     }
@@ -3401,7 +3406,8 @@ impl HasContext for Context {
             ty,
             match pixels {
                 PixelUnpackData::BufferOffset(offset) => offset as *const std::ffi::c_void,
-                PixelUnpackData::Slice(data) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(Some(data)) => data.as_ptr() as *const std::ffi::c_void,
+                PixelUnpackData::Slice(None) => ptr::null(),
             },
         );
     }
@@ -4156,7 +4162,8 @@ impl HasContext for Context {
             gltype,
             match pixels {
                 PixelPackData::BufferOffset(offset) => offset as *mut std::ffi::c_void,
-                PixelPackData::Slice(data) => data.as_mut_ptr() as *mut std::ffi::c_void,
+                PixelPackData::Slice(Some(data)) => data.as_mut_ptr() as *mut std::ffi::c_void,
+                PixelPackData::Slice(None) => ptr::null_mut(),
             },
         );
     }
