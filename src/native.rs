@@ -1,6 +1,6 @@
 use super::*;
 use crate::{gl46 as native_gl, version::Version};
-use std::ffi::CStr;
+use std::ffi::{c_char, CStr};
 use std::ptr;
 use std::{collections::HashSet, ffi::CString, num::NonZeroU32};
 
@@ -4268,12 +4268,10 @@ impl HasContext for Context {
         let gl = &self.raw;
 
         const buf_size: usize = 256;
-        const bytes: [u8; buf_size] = [0; buf_size];
+        let mut name_bytes: [c_char; buf_size] = [0; buf_size];
 
         let size: i32 = 0;
         let tftype: u32 = 0;
-        let c_name = CString::new(bytes.to_vec()).unwrap();
-        let c_name_buf = c_name.into_raw();
 
         gl.GetTransformFeedbackVarying(
             program.0.get(),
@@ -4282,10 +4280,12 @@ impl HasContext for Context {
             std::ptr::null_mut(),
             size as *mut i32,
             tftype as *mut u32,
-            c_name_buf,
+            name_bytes.as_mut_ptr(),
         );
 
-        let name = CString::from_raw(c_name_buf).into_string().unwrap();
+        let name = CStr::from_ptr(name_bytes.as_mut_ptr())
+            .to_string_lossy()
+            .into_owned();
 
         Some(ActiveTransformFeedback { size, tftype, name })
     }
