@@ -1376,6 +1376,7 @@ impl HasContext for Context {
 
     unsafe fn get_frag_data_location(&self, program: Self::Program, name: &str) -> i32 {
         let gl = &self.raw;
+        let name = CString::new(name).unwrap();
         gl.GetFragDataLocation(program.0.get(), name.as_ptr() as *const native_gl::GLchar)
     }
 
@@ -1386,6 +1387,7 @@ impl HasContext for Context {
         name: &str,
     ) {
         let gl = &self.raw;
+        let name = CString::new(name).unwrap();
         gl.BindFragDataLocation(
             program.0.get(),
             color_number,
