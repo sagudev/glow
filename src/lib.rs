@@ -1943,12 +1943,21 @@ pub fn bytes_per_type(pixel_type: u32) -> usize {
         BYTE | UNSIGNED_BYTE => 1,
         SHORT | UNSIGNED_SHORT => 2,
         INT | UNSIGNED_INT => 4,
-        HALF_FLOAT | HALF_FLOAT_OES => 2,
+        HALF_FLOAT /*| HALF_FLOAT_OES */=> 2,
         FLOAT => 4,
         _ => panic!("unsupported pixel type: {:?}", pixel_type),
     }
 }
 
+macro_rules! chk {
+    ($(pub const $name:ident: $type:ty = $value:expr;)*) => {
+        $( pub const $name: $type = $value;const _: () = assert!($value == paste::paste! {crate::gl46::[<GL_ $name>]}); )*
+
+
+    };
+}
+
+chk! {
 pub const ACTIVE_ATOMIC_COUNTER_BUFFERS: u32 = 0x92D9;
 
 pub const ACTIVE_ATTRIBUTES: u32 = 0x8B89;
@@ -2265,8 +2274,8 @@ pub const COMPATIBLE_SUBROUTINES: u32 = 0x8E4B;
 
 pub const COMPILE_STATUS: u32 = 0x8B81;
 
-pub const COMPLETION_STATUS: u32 = 0x91B1;
-
+//pub const COMPLETION_STATUS: u32 = 0x91B1;
+/*
 pub const COMPRESSED_R11_EAC: u32 = 0x9270;
 
 pub const COMPRESSED_RED: u32 = 0x8225;
@@ -2387,7 +2396,7 @@ pub const COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR: u32 = 0x93DC;
 
 pub const COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR: u32 = 0x93DD;
 
-pub const COMPRESSED_TEXTURE_FORMATS: u32 = 0x86A3;
+pub const COMPRESSED_TEXTURE_FORMATS: u32 = 0x86A3;*/
 
 pub const COMPUTE_SHADER: u32 = 0x91B9;
 
@@ -2561,7 +2570,7 @@ pub const DISPATCH_INDIRECT_BUFFER: u32 = 0x90EE;
 
 pub const DISPATCH_INDIRECT_BUFFER_BINDING: u32 = 0x90EF;
 
-pub const DISPLAY_LIST: u32 = 0x82E7;
+//pub const DISPLAY_LIST: u32 = 0x82E7;
 
 pub const DITHER: u32 = 0x0BD0;
 
@@ -2853,7 +2862,7 @@ pub const GREEN_INTEGER: u32 = 0x8D95;
 
 pub const GUILTY_CONTEXT_RESET: u32 = 0x8253;
 
-pub const HALF_FLOAT_OES: u32 = 0x8D61;
+//pub const HALF_FLOAT_OES: u32 = 0x8D61;
 
 pub const HALF_FLOAT: u32 = 0x140B;
 
@@ -2939,7 +2948,7 @@ pub const INCR: u32 = 0x1E02;
 
 pub const INCR_WRAP: u32 = 0x8507;
 
-pub const INDEX: u32 = 0x8222;
+//pub const INDEX: u32 = 0x8222;
 
 pub const INFO_LOG_LENGTH: u32 = 0x8B84;
 
@@ -3311,7 +3320,7 @@ pub const MAX_SAMPLE_MASK_WORDS: u32 = 0x8E59;
 
 pub const MAX_SERVER_WAIT_TIMEOUT: u32 = 0x9111;
 
-pub const MAX_SHADER_COMPILER_THREADS: u32 = 0x91B0;
+//pub const MAX_SHADER_COMPILER_THREADS: u32 = 0x91B0;
 
 pub const MAX_SHADER_STORAGE_BLOCK_SIZE: u32 = 0x90DE;
 
@@ -4790,7 +4799,7 @@ pub const XOR: u32 = 0x1506;
 pub const ZERO: u32 = 0;
 
 pub const ZERO_TO_ONE: u32 = 0x935F;
-
+}
 mod __private {
     /// Prevents [`HasContext`] from being implemented outside of this crate.
     #[doc(hidden)]

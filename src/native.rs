@@ -335,7 +335,7 @@ impl HasContext for Context {
     unsafe fn get_shader_completion_status(&self, shader: Self::Shader) -> bool {
         let gl = &self.raw;
         let mut status = 0;
-        gl.GetShaderiv(shader.0.get(), COMPLETION_STATUS, &mut status);
+        gl.GetShaderiv(shader.0.get(), 5, &mut status);
         1 == status
     }
 
@@ -458,7 +458,7 @@ impl HasContext for Context {
     unsafe fn get_program_completion_status(&self, program: Self::Program) -> bool {
         let gl = &self.raw;
         let mut status = 0;
-        gl.GetProgramiv(program.0.get(), COMPLETION_STATUS, &mut status);
+        gl.GetProgramiv(program.0.get(), 5, &mut status);
         1 == status
     }
 

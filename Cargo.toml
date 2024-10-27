@@ -19,7 +19,7 @@ targets = [
   "x86_64-pc-windows-msvc",
   "i686-unknown-linux-gnu",
   "i686-pc-windows-msvc",
-  "wasm32-unknown-unknown"
+  "wasm32-unknown-unknown",
 ]
 
 [lib]
@@ -27,6 +27,7 @@ name = "glow"
 path = "src/lib.rs"
 
 [dependencies]
+paste = "1"
 log = { version = "0.4.16", optional = true }
 
 [features]
@@ -100,7 +101,4 @@ features = [
 ]
 
 [workspace]
-members = [
-  "examples/hello",
-  "examples/howto",
-]
+members = ["examples/hello", "examples/howto"]
