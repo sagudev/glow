@@ -4279,19 +4279,19 @@ impl HasContext for Context {
     ) -> Option<ActiveTransformFeedback> {
         let gl = &self.raw;
 
-        const buf_size: usize = 256;
-        let mut name_bytes: [c_char; buf_size] = [0; buf_size];
+        const max_name_size: usize = 256;
+        let mut name_bytes = [0; max_name_size];
 
-        let size: i32 = 0;
-        let tftype: u32 = 0;
+        let mut size = 0;
+        let mut tftype = 0;
 
         gl.GetTransformFeedbackVarying(
             program.0.get(),
             index,
-            buf_size as i32,
+            name_bytes.len() as i32,
             std::ptr::null_mut(),
-            size as *mut i32,
-            tftype as *mut u32,
+            &mut size,
+            &mut tftype,
             name_bytes.as_mut_ptr(),
         );
 
